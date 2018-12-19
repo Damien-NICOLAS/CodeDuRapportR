@@ -1,4 +1,4 @@
-#Libraire : ggplot/ dplyr /tydir
+#Libraire : ggplot/ dplyr 
 
 #Import des données depuis le CSV
 file = read.csv("bgg_db_1806.csv")
