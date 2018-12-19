@@ -1,7 +1,7 @@
-#Libraire : ggplot/ dplyr 
+#Librairies : ggplot/ dplyr 
 
 #Import des données depuis le CSV
-file = read.csv("bgg_db_1806.csv")
+file = read.csv("CodeDuRapportR/bgg_db_1806.csv")
 
 #On retire les deux colonnes qui nous sont inutiles : bgg_url and images_url 
 file_bis = file[,-2]
@@ -60,7 +60,7 @@ AllMechanics = c("Action / Movement Programing",
                  "Worker Placement", 
                  "none")
 
-#Combien il y a t-il de jeu par ans ?
+#Combien il y a t-il de jeu par an ?
 
 nbreDeJeuParAns = ddply(file, "year", nombreDeJeu = count(file, file$year))
 
@@ -70,7 +70,7 @@ nbreDeJeuParAns = ddply(file, "year", nombreDeJeu = count(file, file$year))
 #On commence par prendre uniquement le jeu de cette année
 lesJeuxDeCetteAnnee = filter(file, year == 2018)
 
-#On crée ensuite un data.frame avec tout a somme de tout les mecaniques sur cette année
+#On crée ensuite un data.frame avec tout a somme de toutes les mecaniques sur cette année
 NbreDeMecPour2018 = c(sum(lesJeuxDeCetteAnnee$Action...Movement.Programming),
                       sum(lesJeuxDeCetteAnnee$Campaign...Battle.Card.Driven),
                       sum(lesJeuxDeCetteAnnee$Commodity.Speculation), 
@@ -126,5 +126,17 @@ mechanicsIn2018 = data.frame(AllMechanics,   NbreDeMecPour2018 )
 #On plot ensuite le graphe
 ggplot(mechanicsIn2018, aes(x = AllMechanics, y = NbreDeMecPour2018))+ geom_bar(stat="identity") + geom_boxplot() + ggtitle("Plot of the game mechanics present in the 62 games of 2018") + xlab("Game mecanics") + ylab("Number of game") + theme(plot.title = element_text(size=20),axis.text.x  = element_text(angle=90, vjust=0.5))
 
-#Quelles est l'évolution des cinq mécanique les plus présentes en 2018 durant les 10 dernières années ?
-# 
+#Quelles sont les 5 mécaniques de jeu les plus utilisées ces 5 dernières années ? 
+#filter sur une des 5 dernieres années
+# on fait la somme des jeu mecaniques
+# on rank sur les meca  et on prend seulement les 5 premiers
+#on plot
+
+#Quelles les 5 mécaniques de jeu les plus populaires ces 5 dernières années ?
+#filter sur une des 5 dernieres années
+# on fait une moyenne des rank sur les mécaniques de jeu grâce aux colonnes de Damien
+# on prend seulement les 5 premiers
+# on plot
+
+
+
