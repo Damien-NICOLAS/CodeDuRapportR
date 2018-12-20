@@ -1,7 +1,7 @@
 #Librairies : ggplot/ dplyr 
 
 #Import des données depuis le CSV
-file = read.csv("CodeDuRapportR/bgg_db_1806.csv")
+file = read.csv("bgg_db_1806.csv")
 
 #On retire les deux colonnes qui nous sont inutiles : bgg_url and images_url 
 file_bis = file[,-2]
@@ -61,9 +61,12 @@ AllMechanics = c("Action / Movement Programing",
                  "none")
 
 #Combien il y a t-il de jeu par an ?
+#On calcule les effectifs par ans avec la fonction "table"
+nbreDeJeuParAns = table(file$year)
+nbreDeJeuParAnsDF = as.data.frame(nbreDeJeuParAns)
 
-nbreDeJeuParAns = ddply(file, "year", nombreDeJeu = count(file, file$year))
-
+#On plot ensuite le graphique 
+ggplot(nbreDeJeuParAnsDF, aes(x = Var1, y = Freq))+ geom_bar(stat="identity") + geom_boxplot() + ggtitle("Evolution of the number of board games edited each year") + xlab("Year") + ylab("Number of game") + theme(plot.title = element_text(size=20),axis.text.x  = element_text(angle=90, vjust=0.5))
 
 
 #Quelles sont les mécaniques de jeu cette année ? 
